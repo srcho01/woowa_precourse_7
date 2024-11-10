@@ -9,11 +9,16 @@ import java.util.List;
 public class Orders {
 
     private final List<Order> orders;
+    private boolean membership;
 
     public Orders(String data) {
         validate(data);
         this.orders = new ArrayList<>();
         addOrders(data);
+    }
+
+    public void addMembership(boolean membership) {
+        this.membership = membership;
     }
 
     private void addOrders(String data) {

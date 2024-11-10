@@ -17,7 +17,10 @@ public class StoreController {
 
     public void run() {
         outputView.printStock(StockManager.getInstance().getStock());
+
         Orders orders = inputView.readOrder();
+        boolean membership = inputView.readMembership();
+        orders.addMembership(membership);
     }
 
 }
