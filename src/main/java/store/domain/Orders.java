@@ -22,18 +22,18 @@ public class Orders {
         this.membership = membership;
     }
 
+    public void reduceInventory() {
+        for (Order order : orders) {
+            order.reduceInventory();
+        }
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
 
     public boolean isMembership() {
         return membership;
-    }
-
-    public void reduceInventory() {
-        for (Order order : orders) {
-            order.reduceInventory();
-        }
     }
 
     private void addOrders(StockManager stockManager, String data) {

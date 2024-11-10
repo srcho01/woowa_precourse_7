@@ -61,7 +61,8 @@ public class Product {
         }
 
         // 프로모션 재고를 추가해야 하는 경우 (양수로 표현)
-        return Math.min(promotionQuantity - purchaseAmount, promotion.additionalPromotion(purchaseAmount));
+        return Math.min(promotionQuantity - purchaseAmount,
+                promotion.additionalPromotion(purchaseAmount, promotionQuantity));
     }
 
     public int countPromotion(int purchaseAmount) {

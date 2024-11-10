@@ -28,12 +28,12 @@ public class Order {
         return product.adjustPromotion(quantity);
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
     public void addQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
@@ -42,7 +42,7 @@ public class Order {
 
     private void validateProduct(StockManager stockManager, String productName) {
         if (!stockManager.contains(productName)) {
-            throw ErrorCode.INVALID_INPUT.exception();
+            throw ErrorCode.PRODUCT_NOT_FOUND.exception();
         }
     }
 
