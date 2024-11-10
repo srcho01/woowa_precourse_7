@@ -67,7 +67,7 @@ public class OutputView {
                 receiptDetail.get(1));
         System.out.println("행사할인\t\t\t-" + receiptDetail.get(2));
         System.out.println("멤버십할인\t\t\t-" + receiptDetail.get(3));
-        System.out.println("내실돈\t\t\t" + receiptDetail.getLast());
+        System.out.println("내실돈\t\t\t" + receiptDetail.getLast() + "\n");
     }
 
 }
