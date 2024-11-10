@@ -9,4 +9,6 @@ public class Constant {
 
     public static final String NATURAL_NUMBER_REGEX = "^[1-9]\\d*$";
 
+    public static final int MAX_MEMBERSHIP_DISCOUNT = 8000;
+
 }

@@ -25,6 +25,10 @@ public class Orders {
         return orders;
     }
 
+    public boolean isMembership() {
+        return membership;
+    }
+
     public void reduceInventory() {
         for (Order order : orders) {
             order.reduceInventory();

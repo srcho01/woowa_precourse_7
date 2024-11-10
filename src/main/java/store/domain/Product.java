@@ -35,7 +35,7 @@ public class Product {
         quantity -= amount - usePromotion;
     }
 
-    private boolean hasPromotion() {
+    public boolean hasPromotion() {
         return promotion != null && !promotion.isExpired();
     }
 
@@ -64,6 +64,13 @@ public class Product {
         return Math.min(promotionQuantity - purchaseAmount, promotion.additionalPromotion(purchaseAmount));
     }
 
+    public int countPromotion(int purchaseAmount) {
+        if (hasPromotion()) {
+            return promotion.countPromotion(purchaseAmount, promotionQuantity);
+        }
+        return 0;
+    }
+
     public void addPromotion(String promotionName, int promotionQuantity) {
         this.promotion = PromotionManager.getInstance().getPromotionByName(promotionName);
         this.promotionQuantity = promotionQuantity;
@@ -71,6 +78,14 @@ public class Product {
 
     public void addRegular(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -81,10 +96,6 @@ public class Product {
         }
 
         return promotionOutput + toStringRegular();
-    }
-
-    public String getName() {
-        return name;
     }
 
     private String toStringPromotion() {

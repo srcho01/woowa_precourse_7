@@ -20,6 +20,10 @@ public class Order {
         product.decreaseStock(quantity);
     }
 
+    public int countPromotion() {
+        return product.countPromotion(quantity);
+    }
+
     public int adjustPromotion() {
         return product.adjustPromotion(quantity);
     }
@@ -30,6 +34,10 @@ public class Order {
 
     public void addQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     private void validateProduct(String productName) {
@@ -44,11 +52,4 @@ public class Order {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "product=" + product +
-                ", quantity=" + quantity +
-                '}';
-    }
 }
