@@ -1,17 +1,19 @@
 package store.domain;
 
-import java.time.LocalDate;
+import camp.nextstep.edu.missionutils.DateTimes;
+
+import java.time.LocalDateTime;
 
 public class Promotion {
 
     private final String name;
     private final int buy;
     private final int get;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final LocalDateTime startDate;
+    private final LocalDateTime endDate;
 
     public Promotion(String name, int buy, int get,
-                     LocalDate startDate, LocalDate endDate) {
+                     LocalDateTime startDate, LocalDateTime endDate) {
         this.name = name;
         this.buy = buy;
         this.get = get;
@@ -43,7 +45,8 @@ public class Promotion {
     }
 
     public boolean isExpired() {
-        LocalDate now = LocalDate.now();
+        LocalDateTime now = DateTimes.now();
+        System.out.println(now);
         return now.isBefore(startDate) || now.isAfter(endDate);
     }
 

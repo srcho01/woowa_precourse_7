@@ -3,6 +3,7 @@ package store.domain;
 import store.service.DataReader;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +44,8 @@ public class ItemFactory {
         String name = splittedData[0];
         int buy = Integer.parseInt(splittedData[1]);
         int get = Integer.parseInt(splittedData[2]);
-        LocalDate startDate = LocalDate.parse(splittedData[3]);
-        LocalDate endDate = LocalDate.parse(splittedData[4]);
+        LocalDateTime startDate = LocalDate.parse(splittedData[3]).atStartOfDay();
+        LocalDateTime endDate = LocalDate.parse(splittedData[4]).atStartOfDay();
 
         return new Promotion(name, buy, get, startDate, endDate);
     }
