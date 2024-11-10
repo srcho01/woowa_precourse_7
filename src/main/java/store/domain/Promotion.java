@@ -30,10 +30,10 @@ public class Promotion {
         return Math.min(purchaseAmount / promotionRegularSet, promotionQuantity / promotionRegularSet);
     }
 
-    public int additionalPromotion(int purchaseAmount) {
+    public int additionalPromotion(int purchaseAmount, int promotionQuantity) {
         int promotionRegularSet = buy + get;
         if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) == buy) {
-            return get;
+            return Math.min(get, promotionQuantity);
         }
         return 0;
     }
@@ -46,7 +46,6 @@ public class Promotion {
 
     public boolean isExpired() {
         LocalDateTime now = DateTimes.now();
-        System.out.println(now);
         return now.isBefore(startDate) || now.isAfter(endDate);
     }
 
