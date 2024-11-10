@@ -40,7 +40,7 @@ public class CalculatePrice {
         );
     }
 
-    public int getTotalAmount(Orders orders) {
+    private int getTotalAmount(Orders orders) {
         int total = 0;
         for (Order order : orders.getOrders()) {
             total += order.getQuantity();
@@ -49,7 +49,7 @@ public class CalculatePrice {
         return total;
     }
 
-    public int getTotalPrice(Orders orders) {
+    private int getTotalPrice(Orders orders) {
         int total = 0;
         for (Order order : orders.getOrders()) {
             total += calculateOrderPrice(order);
@@ -62,7 +62,7 @@ public class CalculatePrice {
         return order.getQuantity() * order.getProduct().getPrice();
     }
 
-    public int getPromotionPrice(Orders orders) {
+    private int getPromotionPrice(Orders orders) {
         int total = 0;
         for (Order order : orders.getOrders()) {
             total += order.countPromotion() * order.getProduct().getPrice();
@@ -71,7 +71,7 @@ public class CalculatePrice {
         return total;
     }
 
-    public int getMembershipPrice(Orders orders) {
+    private int getMembershipPrice(Orders orders) {
         if (orders.isMembership()) {
             int discounted = calculateMembership(orders);
             return Math.min(discounted, Constant.MAX_MEMBERSHIP_DISCOUNT);
