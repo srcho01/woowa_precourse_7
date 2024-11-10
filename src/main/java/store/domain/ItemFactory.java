@@ -31,8 +31,7 @@ public class ItemFactory {
         List<Product> stock = new ArrayList<>();
 
         for (String productItem : productData) {
-            Product product = productBuilder(productItem);
-            stock.add(product);
+            addProduct(stock, productItem);
         }
 
         return stock;
@@ -50,15 +49,49 @@ public class ItemFactory {
         return new Promotion(name, buy, get, startDate, endDate);
     }
 
-    private Product productBuilder(String productItem) {
+    private void addProduct(List<Product> stock, String productItem) {
         String[] splittedData = productItem.split(",");
 
         String name = splittedData[0];
         int price = Integer.parseInt(splittedData[1]);
         int quantity = Integer.parseInt(splittedData[2]);
-        String promotion = getPromotionName(splittedData[3]);
+        String promotionName = getPromotionName(splittedData[3]);
 
-        return new Product(name, price, quantity, promotion);
+        addOrUpdateProductStock(stock, name, price, quantity, promotionName);
+    }
+
+    private void addOrUpdateProductStock(List<Product> stock,
+                                         String name, int price, int quantity, String promotionName) {
+        Product product = existProduct(stock, name);
+        if (product == null) {
+            stock.add(productBuilder(name, price, quantity, promotionName));
+            return;
+        }
+        addQuantityToProduct(product, promotionName, quantity);
+    }
+
+    private void addQuantityToProduct(Product product, String promotionName, int quantity) {
+        if (promotionName == null) {
+            product.addRegular(quantity);
+            return;
+        }
+        product.addPromotion(promotionName, quantity);
+    }
+
+    private Product productBuilder(String name, int price, int quantity, String promotionName) {
+        if (promotionName == null) {
+            return new Product(name, price, quantity);
+        }
+        return new Product(name, price, promotionName, quantity);
+    }
+
+    private Product existProduct(List<Product> stock, String name) {
+        for (Product product : stock) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
     }
 
     private String getPromotionName(String promotion) {

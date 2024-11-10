@@ -23,4 +23,13 @@ public class PromotionManager {
         return promotions;
     }
 
+    public Promotion getPromotionByName(String name) {
+        for (Promotion promotion : promotions) {
+            if (promotion.getName().equals(name)) {
+                return promotion;
+            }
+        }
+        return null;
+    }
+
 }

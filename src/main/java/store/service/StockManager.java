@@ -23,6 +23,15 @@ public class StockManager {
         return stock;
     }
 
+    public boolean contains(String name) {
+        for (Product product : stock) {
+            if (product.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Product getProductByName(String name) {
         for (Product product : stock) {
             if (product.getName().equals(name)) {

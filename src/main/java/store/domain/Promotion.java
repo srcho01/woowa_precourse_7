@@ -19,4 +19,17 @@ public class Promotion {
         this.endDate = endDate;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int calculateRegularQuantity(int quantity) {
+        return (quantity / (buy + get)) * buy + (quantity % (buy + get));
+    }
+
+    public boolean isExpired() {
+        LocalDate now = LocalDate.now();
+        return now.isBefore(startDate) || now.isAfter(endDate);
+    }
+
 }
