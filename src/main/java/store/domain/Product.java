@@ -14,6 +14,7 @@ public class Product {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.promotionQuantity = 0;
     }
 
     public Product(String name, int price, String promotionName, int promotionQuantity) {
@@ -21,35 +22,25 @@ public class Product {
         this.price = price;
         this.promotion = PromotionManager.getInstance().getPromotionByName(promotionName);
         this.promotionQuantity = promotionQuantity;
+        this.quantity = 0;
     }
 
-    public boolean hasPromotion() {
-        return promotion != null;
+    public boolean canPurchase(int purchaseAmount) {
+        return purchaseAmount <= quantity + promotionQuantity;
     }
 
-    public int neededPromotionQuantity(int purchaseAmount) {
-        if (!hasPromotion() || promotion.isExpired()) {
-            return 0;
+    public boolean unableGetPromotion(int purchaseAmount) {
+        return purchaseAmount > promotionQuantity;
+    }
+
+    public int adjustPromotion(int purchaseAmount) {
+        // 프로모션 재고가 부족하여 정가로 결제해야 하는 경우 (음수로 표현)
+        if (unableGetPromotion(purchaseAmount)) {
+            return promotion.insufficientPromotion(purchaseAmount, promotionQuantity);
         }
 
-        return purchaseAmount - neededRegularQuantity(purchaseAmount);
-    }
-
-    public int neededRegularQuantity(int purchaseAmount) {
-        return promotion.calculateRegularQuantity(purchaseAmount);
-    }
-
-    public boolean canBuyRegular(int purchaseAmount) {
-        return neededRegularQuantity(purchaseAmount) <= quantity;
-    }
-
-    public boolean canGetPromotion(int purchaseAmount) {
-        return neededPromotionQuantity(purchaseAmount) <= promotionQuantity;
-    }
-
-    public boolean canBuyPromotionInRegular(int purchaseAmount) {
-        int promotionCount = Math.min(promotion.calculateRegularQuantity(purchaseAmount), promotionQuantity);
-        return purchaseAmount - promotionCount <= quantity;
+        // 프로모션 재고를 추가해야 하는 경우 (양수로 표현)
+        return Math.min(promotionQuantity - purchaseAmount, promotion.additionalPromotion(purchaseAmount));
     }
 
     public void addPromotion(String promotionName, int promotionQuantity) {

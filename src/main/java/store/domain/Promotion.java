@@ -23,8 +23,22 @@ public class Promotion {
         return name;
     }
 
-    public int calculateRegularQuantity(int quantity) {
-        return (quantity / (buy + get)) * buy + (quantity % (buy + get));
+    public int calculateRegularQuantity(int purchaseAmount) {
+        return (purchaseAmount / (buy + get)) * buy + (purchaseAmount % (buy + get));
+    }
+
+    public int additionalPromotion(int purchaseAmount) {
+        int promotionRegularSet = buy + get;
+        if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) % buy == 0) {
+            return get;
+        }
+        return 0;
+    }
+
+    public int insufficientPromotion(int purchaseAmount, int promotionQuantity) {
+        int promotionRegularSet = buy + get;
+        int availablePromotion = promotionRegularSet * (promotionQuantity / promotionRegularSet);
+        return Math.min(availablePromotion - purchaseAmount, 0);
     }
 
     public boolean isExpired() {

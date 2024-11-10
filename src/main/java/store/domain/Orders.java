@@ -21,6 +21,10 @@ public class Orders {
         this.membership = membership;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     private void addOrders(String data) {
         for (String item : data.split(",")) {
             String[] splitted = splitByDash(item);
