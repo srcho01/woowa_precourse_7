@@ -1,5 +1,6 @@
 package store.domain;
 
+import store.service.StockManager;
 import store.util.Constant;
 import store.util.ErrorCode;
 
@@ -11,10 +12,10 @@ public class Orders {
     private final List<Order> orders;
     private boolean membership;
 
-    public Orders(String data) {
+    public Orders(StockManager stockManager, String data) {
         validate(data);
         this.orders = new ArrayList<>();
-        addOrders(data);
+        addOrders(stockManager, data);
     }
 
     public void addMembership(boolean membership) {
@@ -35,14 +36,14 @@ public class Orders {
         }
     }
 
-    private void addOrders(String data) {
+    private void addOrders(StockManager stockManager, String data) {
         for (String item : data.split(",")) {
             String[] splitted = splitByDash(item);
 
             String productName = splitted[0];
             int quantity = Integer.parseInt(splitted[1]);
 
-            this.orders.add(new Order(productName, quantity));
+            this.orders.add(new Order(stockManager, productName, quantity));
         }
     }
 

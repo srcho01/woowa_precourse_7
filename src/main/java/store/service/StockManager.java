@@ -7,16 +7,11 @@ import java.util.List;
 
 public class StockManager {
 
-    private static final StockManager instance = new StockManager();
     private final List<Product> stock;
 
-    private StockManager() {
+    public StockManager() {
         ItemFactory itemFactory = new ItemFactory();
         stock = itemFactory.stockFactory();
-    }
-
-    public static StockManager getInstance() {
-        return instance;
     }
 
     public List<Product> getStock() {

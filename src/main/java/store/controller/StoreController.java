@@ -8,10 +8,12 @@ import store.view.OutputView;
 
 public class StoreController {
 
+    private final StockManager stockManager;
     private final OutputView outputView;
     private final InputView inputView;
 
     public StoreController() {
+        stockManager = new StockManager();
         outputView = new OutputView();
         inputView = new InputView();
     }
@@ -28,11 +30,11 @@ public class StoreController {
     }
 
     private void printStock() {
-        outputView.printStock(StockManager.getInstance().getStock());
+        outputView.printStock(stockManager.getStock());
     }
 
     private Orders doOrder() {
-        Orders orders = inputView.readOrder();
+        Orders orders = inputView.readOrder(stockManager);
         adjustPromotion(orders);
 
         boolean membership = inputView.readMembership();
