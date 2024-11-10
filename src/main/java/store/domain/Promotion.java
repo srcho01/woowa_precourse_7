@@ -29,7 +29,7 @@ public class Promotion {
 
     public int additionalPromotion(int purchaseAmount) {
         int promotionRegularSet = buy + get;
-        if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) % buy == 0) {
+        if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) == buy) {
             return get;
         }
         return 0;

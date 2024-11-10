@@ -25,6 +25,12 @@ public class Orders {
         return orders;
     }
 
+    public void reduceInventory() {
+        for (Order order : orders) {
+            order.reduceInventory();
+        }
+    }
+
     private void addOrders(String data) {
         for (String item : data.split(",")) {
             String[] splitted = splitByDash(item);

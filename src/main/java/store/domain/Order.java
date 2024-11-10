@@ -16,6 +16,10 @@ public class Order {
         this.quantity = quantity;
     }
 
+    public void reduceInventory() {
+        product.decreaseStock(quantity);
+    }
+
     public int adjustPromotion() {
         return product.adjustPromotion(quantity);
     }

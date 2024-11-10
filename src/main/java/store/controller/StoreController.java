@@ -22,12 +22,15 @@ public class StoreController {
         Orders orders = inputView.readOrder();
         adjustPromotion(orders);
 
+        boolean membership = inputView.readMembership();
+        orders.addMembership(membership);
+
+        orders.reduceInventory();
+
         for (Order order : orders.getOrders()) {
             System.out.println(order.toString());
         }
 
-        boolean membership = inputView.readMembership();
-        orders.addMembership(membership);
     }
 
     private void adjustPromotion(Orders orders) {
@@ -55,7 +58,5 @@ public class StoreController {
             order.addQuantity(removeAmount);
         }
     }
-
-
 
 }

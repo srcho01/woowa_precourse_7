@@ -25,6 +25,12 @@ public class Product {
         this.quantity = 0;
     }
 
+    public void decreaseStock(int amount) {
+        int usePromotion = Math.min(amount, promotionQuantity);
+        promotionQuantity -= usePromotion;
+        quantity -= amount - usePromotion;
+    }
+
     public boolean canPurchase(int purchaseAmount) {
         return purchaseAmount <= quantity + promotionQuantity;
     }
@@ -85,7 +91,7 @@ public class Product {
 
     private String formatQuantity(int quantity) {
         if (quantity == 0) {
-            return "재고 없음";
+            return "재고 없음 ";
         }
         return String.format("%,d", quantity) + "개 ";
     }
