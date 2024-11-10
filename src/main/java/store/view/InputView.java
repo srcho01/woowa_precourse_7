@@ -60,6 +60,19 @@ public class InputView {
         }
     }
 
+    public boolean readBuyMore() {
+        while (true) {
+            try {
+                System.out.println("감사합니다. 구매하고 싶은 다른 상품이 있나요? (Y/N)");
+                String input = Console.readLine();
+                System.out.println();
+                return parseYesNo(input);
+            } catch (IllegalArgumentException exception) {
+                System.out.println(exception.getMessage() + "\n");
+            }
+        }
+    }
+
     private void validateYorN(String input) {
         if (!input.equals("y") && !input.equals("n")) {
             throw ErrorCode.INVALID_INPUT.exception();

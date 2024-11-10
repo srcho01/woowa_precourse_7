@@ -17,20 +17,37 @@ public class StoreController {
     }
 
     public void run() {
-        outputView.printStock(StockManager.getInstance().getStock());
+        boolean flag = false;
 
+        do {
+            printStock();
+            Orders orders = doOrder();
+            printReceipt(orders);
+            flag = doNext(orders);
+        } while (flag);
+    }
+
+    private void printStock() {
+        outputView.printStock(StockManager.getInstance().getStock());
+    }
+
+    private Orders doOrder() {
         Orders orders = inputView.readOrder();
         adjustPromotion(orders);
 
         boolean membership = inputView.readMembership();
         orders.addMembership(membership);
 
+        return orders;
+    }
+
+    private void printReceipt(Orders orders) {
+        outputView.printReceipt(orders);
+    }
+
+    private boolean doNext(Orders orders) {
         orders.reduceInventory();
-
-        for (Order order : orders.getOrders()) {
-            System.out.println(order.toString());
-        }
-
+        return inputView.readBuyMore();
     }
 
     private void adjustPromotion(Orders orders) {
