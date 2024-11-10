@@ -26,13 +26,24 @@ public class Product {
     }
 
     public void decreaseStock(int amount) {
-        int usePromotion = Math.min(amount, promotionQuantity);
-        promotionQuantity -= usePromotion;
+        int usePromotion = 0;
+        if (hasPromotion()) {
+            usePromotion = Math.min(amount, promotionQuantity);
+            promotionQuantity -= usePromotion;
+        }
+
         quantity -= amount - usePromotion;
     }
 
+    private boolean hasPromotion() {
+        return promotion != null && !promotion.isExpired();
+    }
+
     public boolean canPurchase(int purchaseAmount) {
-        return purchaseAmount <= quantity + promotionQuantity;
+        if (hasPromotion()) {
+            return purchaseAmount <= quantity + promotionQuantity;
+        }
+        return purchaseAmount <= quantity;
     }
 
     public boolean unableGetPromotion(int purchaseAmount) {
@@ -40,6 +51,10 @@ public class Product {
     }
 
     public int adjustPromotion(int purchaseAmount) {
+        if (!hasPromotion()) {  // 프로모션이 없는 경우
+            return 0;
+        }
+
         // 프로모션 재고가 부족하여 정가로 결제해야 하는 경우 (음수로 표현)
         if (unableGetPromotion(purchaseAmount)) {
             return promotion.insufficientPromotion(purchaseAmount, promotionQuantity);

@@ -23,10 +23,6 @@ public class Promotion {
         return name;
     }
 
-    public int calculateRegularQuantity(int purchaseAmount) {
-        return (purchaseAmount / (buy + get)) * buy + (purchaseAmount % (buy + get));
-    }
-
     public int additionalPromotion(int purchaseAmount) {
         int promotionRegularSet = buy + get;
         if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) == buy) {
