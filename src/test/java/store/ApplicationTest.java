@@ -61,6 +61,52 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 프로모션_재고_부족으로_안되는_상품_구매하지_않기() {
+        assertSimpleTest(() -> {
+            run("[콜라-15]", "N", "N", "N");
+            assertThat(output().replaceAll("\\s", "")).contains("내실돈6,000");
+        });
+    }
+
+    @Test
+    void 프로모션_재고_부족해도_구매() {
+        assertSimpleTest(() -> {
+            run("[콜라-15]", "Y", "N", "N");
+            assertThat(output().replaceAll("\\s", "")).contains("내실돈12,000");
+        });
+    }
+
+    @Test
+    void 멤버십_할인_받기() {
+        assertSimpleTest(() -> {
+            run("[콜라-3],[에너지바-5]", "Y", "N");
+            assertThat(output().replaceAll("\\s", "")).contains("내실돈9,000");
+        });
+    }
+
+    @Test
+    void 멤버십_할인_받지_않기() {
+        assertSimpleTest(() -> {
+            run("[콜라-3],[에너지바-5]", "N", "N");
+            assertThat(output().replaceAll("\\s", "")).contains("내실돈12,000");
+        });
+    }
+
+    @Test
+    void 추가_구매_후_재고_목록_업데이트() {
+        assertSimpleTest(() -> {
+            run("[콜라-15]", "Y", "Y", "Y",
+                    "[물-1]", "N", "N");
+            assertThat(output()).contains(
+                    "- 콜라 1,000원 10개 탄산2+1",
+                    "- 콜라 1,000원 10개",
+                    "- 콜라 1,000원 재고 없음 탄산2+1",
+                    "- 콜라 1,000원 5개"
+            );
+        });
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
