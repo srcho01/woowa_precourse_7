@@ -65,6 +65,10 @@ public class Orders {
         if (data.length != 2 || !data[1].matches(Constant.NATURAL_NUMBER_REGEX)) {
             throw ErrorCode.INVALID_INPUT_FORMAT.exception();
         }
+
+        if (data[1].length() > 3) {  // 최대 999개
+            throw ErrorCode.EXCEEDED_PURCHASE_LIMIT.exception();
+        }
     }
 
     private String[] splitByDash(String item) {
