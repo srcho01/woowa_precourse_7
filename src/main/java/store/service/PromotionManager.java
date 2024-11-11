@@ -22,10 +22,6 @@ public class PromotionManager {
         return instance;
     }
 
-    public List<Promotion> getPromotions() {
-        return promotions;
-    }
-
     public Promotion getPromotionByName(String name) {
         for (Promotion promotion : promotions) {
             if (promotion.getName().equals(name)) {
