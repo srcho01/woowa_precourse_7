@@ -29,7 +29,12 @@ public class Order {
     }
 
     public void addQuantity(int quantity) {
-        this.quantity += quantity;
+        int adjustQuantity = this.quantity + quantity;
+        if (!product.canPurchase(adjustQuantity) || adjustQuantity < 0) {
+            throw new InternalError(ErrorCode.INTERNAL_ERROR.getMessage());
+        }
+
+        this.quantity = adjustQuantity;
     }
 
     public Product getProduct() {
