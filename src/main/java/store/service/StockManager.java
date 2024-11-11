@@ -11,7 +11,10 @@ public class StockManager {
 
     public StockManager() {
         ItemFactory itemFactory = new ItemFactory();
-        stock = itemFactory.stockFactory();
+        DataReader dataReader = new DataReader();
+
+        List<String> productData = dataReader.productReader();
+        stock = itemFactory.stockFactory(productData);
     }
 
     public List<Product> getStock() {

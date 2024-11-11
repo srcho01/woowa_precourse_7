@@ -12,7 +12,10 @@ public class PromotionManager {
 
     private PromotionManager() {
         ItemFactory itemFactory = new ItemFactory();
-        promotions = itemFactory.promotionsFactory();
+        DataReader dataReader = new DataReader();
+
+        List<String> promotionData = dataReader.promotionReader();
+        promotions = itemFactory.promotionsFactory(promotionData);
     }
 
     public static PromotionManager getInstance() {

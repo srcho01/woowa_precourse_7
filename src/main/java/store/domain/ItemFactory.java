@@ -1,7 +1,5 @@
 package store.domain;
 
-import store.service.DataReader;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,14 +7,7 @@ import java.util.List;
 
 public class ItemFactory {
 
-    private final DataReader dataReader;
-
-    public ItemFactory() {
-        this.dataReader = new DataReader();
-    }
-
-    public List<Promotion> promotionsFactory() {
-        List<String> promotionData = dataReader.promotionReader();
+    public List<Promotion> promotionsFactory(List<String> promotionData) {
         List<Promotion> promotions = new ArrayList<>();
 
         for (String promotionItem : promotionData) {
@@ -27,8 +18,7 @@ public class ItemFactory {
         return promotions;
     }
 
-    public List<Product> stockFactory() {
-        List<String> productData = dataReader.productReader();
+    public List<Product> stockFactory(List<String> productData) {
         List<Product> stock = new ArrayList<>();
 
         for (String productItem : productData) {
