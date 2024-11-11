@@ -18,7 +18,7 @@ public class DataReader {
         return dataReader(Constant.PRODUCT_FILE_PATH);
     }
 
-    public List<String> dataReader(String filePath) {
+    private List<String> dataReader(String filePath) {
         List<String> data = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             reader.readLine();  // 헤더 건너뛰기
@@ -30,11 +30,11 @@ public class DataReader {
         return data;
     }
 
-    private void readData(BufferedReader reader, List<String> promotionData)
+    private void readData(BufferedReader reader, List<String> data)
             throws IOException {
         String line;
         while ((line = reader.readLine()) != null) {
-            promotionData.add(line);
+            data.add(line);
         }
     }
 

@@ -92,7 +92,7 @@ public class CalculatePrice {
         return total;
     }
 
-    public int moneyToPay(Orders orders) {
+    private int moneyToPay(Orders orders) {
         return getTotalPrice(orders) - getPromotionPrice(orders) - getMembershipPrice(orders);
     }
 
