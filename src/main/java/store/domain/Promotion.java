@@ -32,8 +32,10 @@ public class Promotion {
 
     public int additionalPromotion(int purchaseAmount, int promotionQuantity) {
         int promotionRegularSet = buy + get;
+        int leftPromotion = Math.max(promotionQuantity - purchaseAmount, 0);
+
         if ((purchaseAmount - promotionRegularSet * (purchaseAmount / promotionRegularSet)) == buy) {
-            return Math.min(get, promotionQuantity);
+            return Math.min(get, leftPromotion);
         }
         return 0;
     }
